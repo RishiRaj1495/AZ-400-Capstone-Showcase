@@ -13,3 +13,7 @@ This repository demonstrates a complete DevOps lifecycle using GitHub and Micros
 - Application Insights
 - Security Gates
 - DORA Metrics
+
+## Branch Protection Demonstration
+
+This change was made through a feature branch and merged using a Pull Request.
