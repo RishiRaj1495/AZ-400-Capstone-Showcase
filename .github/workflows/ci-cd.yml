@@ -1,0 +1,15 @@
+name: AZ-400 Capstone Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pipeline Started
+        run: echo "Pipeline placeholder"
+        
