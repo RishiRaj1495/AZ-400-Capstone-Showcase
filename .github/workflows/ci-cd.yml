@@ -5,11 +5,53 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  placeholder:
+
+  build:
+
+    name: Build Application
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pipeline Started
-        run: echo "Pipeline placeholder"
-        
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Display Project Files
+        run: |
+          echo "Repository Contents:"
+          ls -R
+
+      - name: Validate HTML Exists
+        run: |
+          if [ ! -f app/index.html ]; then
+            echo "index.html not found!"
+            exit 1
+          fi
+
+      - name: Upload Website Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: app/
+
+  security_scan:
+
+    name: Gitleaks Security Scan
+
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
